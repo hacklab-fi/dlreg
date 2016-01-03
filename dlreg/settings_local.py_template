@@ -7,5 +7,13 @@ LDAP_ADMIN_CN = 'cn=admin,dc=foo,dc=bar,dc=com'
 LDAP_USERS_CN = 'ou=users,dc=foo,dc=bar,dc=com'
 LDAP_PASSWORD = 'secret'
 
-# END ldap config
+# Organization config
+
+ORGANIZATION_NAME = 'My organization'
+ORGANIZATION_URL = 'http://url.to.org/'
+
+# Verification question
+
+VERIFICATION_QUESTION = 'What is the meaning of life?'
+VERIFICATION_ANSWER = '42'
 

@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
   
-   
 {% block title %} Registration ui {% endblock %}
  
 {% block content %}
-    <h1> Thanks! </h1>
-Registration should be done..
+ <h1> Thanks! </h1>
+<p>
+Account should now be created to {{ settings.ORGANIZATION_NAME }}.
+</p>
+<p>
+Go to <a href="{{ settings.ORGANIZATION_URL }}">{{ settings.ORGANIZATION_URL }}</a> and try logging in..
+</p>
 
 {% endblock %}
 

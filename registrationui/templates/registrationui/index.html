@@ -4,7 +4,7 @@
 {% block title %} Registration ui {% endblock %}
  
 {% block content %}
-<h1>New user</h1>
+<h1>Add new user to {{ settings.ORGANIZATION_NAME }}</h1>
 
 {% if form.subject.errors %}
     <ol>
@@ -17,7 +17,7 @@
 <form action="/registrationui/" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Create" />
+    <input type="submit" value="Add user" />
 </form>
 
 {% endblock %}
