@@ -37,18 +37,20 @@ def index(request):
 
 # Create the new user record:
 	    add_record = [
-	      ('objectclass', ['inetOrgPerson', 'posixAccount']),
+	      ('objectclass', ['inetOrgPerson', 'posixAccount', 'top']),
 	      ('givenName', [str(first_name)]),
 	      ('uidNumber', [ str(largestUid + 1)]),
 	      ('gidNumber', ['501']),
 	      ('cn', [str(username)] ),
+	      ('uid', [str(username)] ),
 	      ('sn', [str(last_name)] ),
+	      ('mail', [str(email)] ),
 	      ('userpassword', [ldap_md5_crypt.encrypt(password)]),
 	      ('homeDirectory', [str('/home/' + username)]),
 	      ('ou', ['users'])
 	    ]
 	    try:
-                con.add_s('uid=' + str(username) + ',' + settings.LDAP_USERS_CN, add_record)
+                con.add_s('cn=' + str(username) + ',' + settings.LDAP_USERS_CN, add_record)
 	    except ldap.ALREADY_EXISTS:
 		form.add_error('username', "User already exists")
 	    con.unbind()

@@ -9,7 +9,7 @@
 # nano dlreg/dlreg/settings.py    <- Remove DEBUG's if running in production
 # exit container, ctrl-d
 # sudo docker start dlreg
-# sudo docker exec -it dlreg python dlreg/manage.py runserver 0.0.0.0:8000
+# sudo docker exec -d dlreg python dlreg/manage.py runserver 0.0.0.0:8000
 
 # Regui should be running at http://127.0.0.1:8887
 
