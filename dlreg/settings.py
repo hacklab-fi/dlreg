@@ -14,15 +14,9 @@ import logging
 
 from settings_local import *
 
-# LDAP Config:
+# Note! Modify settings_local.py to set LDAP settings. There is
+# settings_local.py_template template.
 
-#LDAP_URL = 'ldap://ldap.host/'
-#LDAP_ADMIN_CN = 'cn=admin,dc=foo,dc=bar,dc=com'
-#LDAP_USERS_CN = 'ou=users,dc=foo,dc=bar,dc=com'
-#LDAP_PASSWORD = 'secret'
-
-
-# END ldap config
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 

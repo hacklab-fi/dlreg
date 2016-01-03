@@ -1,0 +1,11 @@
+
+# LDAP Config:
+# Edit this:
+
+LDAP_URL = 'ldap://ldap.host/'
+LDAP_ADMIN_CN = 'cn=admin,dc=foo,dc=bar,dc=com'
+LDAP_USERS_CN = 'ou=users,dc=foo,dc=bar,dc=com'
+LDAP_PASSWORD = 'secret'
+
+# END ldap config
+
