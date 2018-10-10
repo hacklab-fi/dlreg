@@ -74,11 +74,11 @@ def index(request):
                     return HttpResponseRedirect('thanks')
             except UnicodeEncodeError:
                 form.add_error(None, 'Non-ascii characters inputted - use only a-z as ldap sucks with Unicode. Use Ä->A and Ö->O')
+            except ldap.SERVER_DOWN:
+                form.add_error(None, 'Unable to connect to LDAP server - please try again or report the problem to admins.')
     else:
         form = NewUserForm()
-
     return render(request, 'registrationui/index.html', { 'form': form, 'settings': settings } )
 
 def thanks(request):
     return render(request, 'registrationui/thanks.html', { 'settings': settings } )
-

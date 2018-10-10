@@ -6,17 +6,17 @@ from django.conf import settings
 class UsernameField(forms.CharField):
     def validate(self, value):
         super(UsernameField, self).validate(value)
-	found_s = re.findall('^[\w-]+$', value)
-	valid = bool(found_s) and found_s[0] == value
-	if not valid:
-		raise ValidationError('%s contains illegal characters for username' % value)
+        found_s = re.findall('^[\w-]+$', value)
+        valid = bool(found_s) and found_s[0] == value
+        if not valid:
+            raise ValidationError('%s contains illegal characters for username' % value)
 
 class VerificationField(forms.CharField):
     def validate(self, value):
         super(VerificationField, self).validate(value)
-	valid = value.lower() == settings.VERIFICATION_ANSWER
-	if not valid:
-		raise ValidationError('%s is wrong answer for verification question' % value)
+        valid = value.lower() == settings.VERIFICATION_ANSWER
+        if not valid:
+            raise ValidationError('%s is wrong answer for verification question' % value)
 
 class NewUserForm(forms.Form):
     username = forms.SlugField(label='Username', max_length=100)
@@ -31,4 +31,3 @@ class NewUserForm(forms.Form):
         if self.data['password'] != self.data['password2']:
             raise forms.ValidationError('Passwords are not the same')
         return self.data['password']
-

@@ -17,22 +17,23 @@ from settings_local import *
 # Note! Modify settings_local.py to set LDAP settings. There is
 # settings_local.py_template template.
 
+PROJECT_APP_PATH = os.path.dirname(os.path.abspath(__file__))
+PROJECT_APP = os.path.basename(PROJECT_APP_PATH)
+PROJECT_ROOT = BASE_DIR = os.path.dirname(PROJECT_APP_PATH)
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            os.path.join(PROJECT_ROOT, "registrationui/templates")
+        ],
+        "APP_DIRS": True,
+    },
+]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ayv!gg*cvxe#_ap%l1evu+mrgpd*&taq%+z^6fab6-89te4_qx'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = []
 
 logging.basicConfig(
         level = logging.DEBUG,
@@ -42,7 +43,6 @@ logging.basicConfig(
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
