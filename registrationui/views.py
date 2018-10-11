@@ -24,12 +24,12 @@ def index(request):
 # If you figure out a way to use Unicode, please let me know!
 
             try:
-                username = username.encode('ascii', 'strict')
-                first_name = first_name.encode('ascii', 'strict')
-                last_name = last_name.encode('ascii', 'strict')
-                email = email.encode('ascii', 'strict')
-                password = password.encode('ascii', 'strict')
-                password2 = password2.encode('ascii', 'strict')
+                username.encode('ascii', 'strict')
+                first_name.encode('ascii', 'strict')
+                last_name.encode('ascii', 'strict')
+                email.encode('ascii', 'strict')
+                password.encode('ascii', 'strict')
+                password2.encode('ascii', 'strict')
 
                 con = ldap.initialize(settings.LDAP_URL) 
                 con.bind(settings.LDAP_ADMIN_CN, settings.LDAP_PASSWORD, ldap.AUTH_SIMPLE)
@@ -47,32 +47,31 @@ def index(request):
 
 # Create the new user record:
                 add_record = [
-                  ('objectclass', ['inetOrgPerson', 'posixAccount', 'top']),
-                  ('givenName', [ first_name.encode('ascii','ignore') ]),
-                  ('uidNumber', [ str(largestUid + 1)]),
-                  ('gidNumber', ['501']),
-                  ('cn', [ username ] ),
-                  ('uid', [ username ] ),
-                  ('sn', [ last_name ] ),
-                  ('mail', [ email ] ),
-                  ('userpassword', [ldap_md5_crypt.encrypt(password)]),
-                  ('homeDirectory', [ '/home/' + username ]),
-                  ('ou', ['users'])
+                  ('objectclass', [b'inetOrgPerson', b'posixAccount', b'top']),
+                  ('givenName', [ first_name.encode('ascii') ]),
+                  ('uidNumber', [ str(largestUid + 1).encode('ascii') ]),
+                  ('gidNumber', [ b'501' ]),
+                  ('cn', [ username.encode('ascii') ] ),
+                  ('uid', [ username.encode('ascii') ] ),
+                  ('sn', [ last_name.encode('ascii') ] ),
+                  ('mail', [ email.encode('ascii') ] ),
+                  ('userpassword', [ ldap_md5_crypt.encrypt(password).encode('ascii') ]),
+                  ('homeDirectory', [ ('/home/' + username).encode('ascii') ]),
+                  ('ou', [ b'users' ])
                 ]
-                try:
-                    usercn = 'cn=' + username + ',' + settings.LDAP_USERS_CN
-                    con.add_s(usercn, add_record)
-                except ldap.ALREADY_EXISTS:
-                    form.add_error('username', "User already exists")
+                usercn = 'cn=' + username + ',' + settings.LDAP_USERS_CN
+                con.add_s(usercn, add_record)
                 con.unbind()
-                if form.is_valid():
-                    return HttpResponseRedirect('thanks')
+            except ldap.ALREADY_EXISTS:
+                form.add_error('username', "User already exists")
             except UnicodeEncodeError:
                 form.add_error(None, 'Non-ascii characters inputted - use only a-z as ldap sucks with Unicode. Use Ä->A and Ö->O')
             except ldap.SERVER_DOWN:
                 form.add_error(None, 'Unable to connect to LDAP server - please try again or report the problem to admins.')
-    else:
-        form = NewUserForm()
+            if form.is_valid():
+                return HttpResponseRedirect('thanks')
+        else:
+            form = NewUserForm()
     return render(request, 'registrationui/index.html', { 'form': form, 'settings': settings } )
 
 def thanks(request):
