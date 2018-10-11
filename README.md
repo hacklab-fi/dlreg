@@ -24,7 +24,7 @@ $EDITOR settings_local.py
 
 Run image:
 ```
-docker run --name dlreg -p 8887:8000 --mount type=bind,source=/path/to/settings_local.py,target=/dlreg/dlreg/settings_local.py dlreg:latest
+docker run --name dlreg -p 8887:8000 --mount type=bind,source=/path/to/settings_local.py,target=/dlreg/dlreg/settings_local.py,readonly dlreg:latest
 ```
 The registration UI should now be visible at http://localhost:8887/
 
