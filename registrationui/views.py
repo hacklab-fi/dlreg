@@ -70,8 +70,8 @@ def index(request):
                 form.add_error(None, 'Unable to connect to LDAP server - please try again or report the problem to admins.')
             if form.is_valid():
                 return HttpResponseRedirect('thanks')
-        else:
-            form = NewUserForm()
+    else:
+        form = NewUserForm()
     return render(request, 'registrationui/index.html', { 'form': form, 'settings': settings } )
 
 def thanks(request):
