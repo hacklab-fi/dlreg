@@ -17,7 +17,7 @@ Note: Use only ascii characters (a-z), because LDAP doesn't like unicode.
     </ol>
 {% endif %}
 
-<form action="/registrationui/" method="post">
+<form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Add user" />
