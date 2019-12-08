@@ -18,8 +18,8 @@ docker build -t dlreg:latest .
 ```
 Create local_settings.py from dlreg/settings_local.py_template:
 ```
-cp dlreg/settings_local.py_template settings_local.py
-$EDITOR settings_local.py
+cp dlreg/settings_local.py_template dlreg/settings_local.py
+$EDITOR dlreg/settings_local.py
 ```
 
 Run image:
