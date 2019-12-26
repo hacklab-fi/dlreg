@@ -70,6 +70,12 @@ WSGI_APPLICATION = 'dlreg.wsgi.application'
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
+    'ldap': {
+        'ENGINE': 'ldapdb.backends.ldap',
+        'NAME': 'ldap://localhost/',
+        'USER': 'cn=admin,dc=example,dc=org',
+        'PASSWORD': 'admin',
+     },
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),

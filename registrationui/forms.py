@@ -34,3 +34,9 @@ class NewUserForm(forms.Form):
         if self.data['password'] != self.data['password2']:
             raise forms.ValidationError('Passwords are not the same')
         return self.data['password']
+
+class PasswordChangeForm(forms.Form):
+    username = UsernameField(label='Username', help_text='Lowercase letters a-z only', max_length=100)
+    oldpassword = forms.CharField(label='Current password', max_length=100, widget=forms.PasswordInput)
+    password = forms.CharField(label='New password', max_length=100, widget=forms.PasswordInput)
+    password2 = forms.CharField(label='New password (again)', max_length=100, widget=forms.PasswordInput)

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+  
+{% block title %} Admin {% endblock %}
+ 
+{% block content %}
+ <h1> LDAP Admin </h1>
+<p>
+Users in {{ settings.ORGANIZATION_NAME }}. <a href="{% url 'index' %}">Back to index page.</a>
+</p>
+<table width="97%" border="1">
+    <th>uid</th><th>Name</th><th>E-mail</th><th>Actions</th>
+{% for user in users %}
+<tr>
+    <td>{{user.uid}}</td>
+    <td>{{user.username}}</td>
+    <td>{{user.email}}</td>
+    <td><a href="{% url 'delete' user.uid %}">Delete</a> |
+    <a href="{% url 'pwreset' user.uid %}">Reset pwd</a></td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
