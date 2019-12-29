@@ -9,5 +9,5 @@ ADD . /dlreg
 WORKDIR /dlreg
 
 RUN pip install -r requirements.txt
-
+RUN python manage.py migrate
 CMD python -u manage.py runserver 0.0.0.0:8000 --noreload

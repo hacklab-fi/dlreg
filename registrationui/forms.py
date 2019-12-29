@@ -40,3 +40,7 @@ class PasswordChangeForm(forms.Form):
     oldpassword = forms.CharField(label='Current password', max_length=100, widget=forms.PasswordInput)
     password = forms.CharField(label='New password', max_length=100, widget=forms.PasswordInput)
     password2 = forms.CharField(label='New password (again)', max_length=100, widget=forms.PasswordInput)
+
+class LoginForm(forms.Form):
+    username = UsernameField(label='Username', help_text='Lowercase letters a-z only', max_length=100)
+    password = forms.CharField(label='Password', max_length=100, widget=forms.PasswordInput)

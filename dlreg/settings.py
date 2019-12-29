@@ -28,6 +28,19 @@ TEMPLATES = [
             os.path.join(PROJECT_ROOT, "registrationui/templates")
         ],
         "APP_DIRS": True,
+        "OPTIONS": {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.template.context_processors.request',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
     },
 ]
 
@@ -51,7 +64,7 @@ INSTALLED_APPS = (
     'registrationui',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -64,7 +77,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'dlreg.urls'
 
 WSGI_APPLICATION = 'dlreg.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases

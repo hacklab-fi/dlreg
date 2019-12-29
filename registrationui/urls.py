@@ -10,4 +10,6 @@ urlpatterns = [
     path('pwreset/<int:uid>/', views.pwreset, name='pwreset'),
     path('pwchange', views.pwchange, name='pwchange'),
     path('setadmin/<int:uid>/<int:isadmin>', views.setadmin, name='setadmin'),
+    path('login', views.login, name='login'),
+    path('logout', views.logout, name='logout'),
 ]

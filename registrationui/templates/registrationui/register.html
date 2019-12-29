@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Registration ui {% endblock %}
+ 
+{% block content %}
+<h1>Add new user to {{ settings.ORGANIZATION_NAME }}</h1>
+
+<p>
+Note: Use only ascii characters (a-z), because LDAP doesn't like unicode.
+</p>
+
+{% if form.subject.errors %}
+    <ol>
+    {% for error in form.subject.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+    {% endfor %}
+    </ol>
+{% endif %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Add user" />
+</form>
+
+{% endblock %}
+
