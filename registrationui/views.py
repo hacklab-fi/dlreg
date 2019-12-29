@@ -6,6 +6,7 @@ from django.utils.encoding import smart_text
 from .forms import NewUserForm, PasswordChangeForm
 
 import ldap
+from ldap import modlist as modlist
 from passlib.hash import ldap_md5_crypt
 from .models import LdapGroup, LdapUser
 from django.core.mail import send_mail
@@ -80,10 +81,10 @@ def thanks(request):
     return render(request, 'registrationui/thanks.html', { 'settings': settings } )
 
 def admin(request):
-#    groups = LdapGroup.objects.all()
     ldusers = LdapUser.objects.all()
- 
-    return render(request, 'registrationui/admin.html', { 'settings': settings, 'users': ldusers } )
+    admins = LdapGroup.objects.get(name='admins').members
+
+    return render(request, 'registrationui/admin.html', { 'settings': settings, 'users': ldusers, 'admins': admins } )
 
 def delete(request, uid):
     user = LdapUser.objects.get(uid=uid)
@@ -142,3 +143,30 @@ def pwchange(request):
         form = PasswordChangeForm()
 
     return render(request, 'registrationui/pwchange.html', { 'form': form, 'settings': settings } )
+
+def setadmin(request, uid, isadmin):
+    user = LdapUser.objects.get(uid=uid)
+    con = ldap.initialize(settings.LDAP_URL) 
+    con.bind(settings.LDAP_ADMIN_CN, settings.LDAP_PASSWORD, ldap.AUTH_SIMPLE)
+    con.set_option(ldap.OPT_REFERRALS,0)
+    if isadmin == 1:
+        if user.is_admin():
+            print('User is already admin!')
+        else:
+            con.modify_s(
+                settings.LDAP_ADMINS_CN,
+                [
+                    (ldap.MOD_ADD, 'memberUid', [user.user_dn().encode('ascii')]),
+                ],
+            )
+    else:
+        if not user.is_admin():
+            print('User is already not admin!')
+        else:
+            con.modify_s(
+                settings.LDAP_ADMINS_CN,
+                [
+                    (ldap.MOD_DELETE, 'memberUid', [user.user_dn().encode('ascii')]),
+                ],
+            )
+    return admin(request)

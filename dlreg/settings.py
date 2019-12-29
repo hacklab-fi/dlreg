@@ -72,9 +72,9 @@ WSGI_APPLICATION = 'dlreg.wsgi.application'
 DATABASES = {
     'ldap': {
         'ENGINE': 'ldapdb.backends.ldap',
-        'NAME': 'ldap://localhost/',
-        'USER': 'cn=admin,dc=example,dc=org',
-        'PASSWORD': 'admin',
+        'NAME': LDAP_URL,
+        'USER': LDAP_ADMIN_CN,
+        'PASSWORD': LDAP_PASSWORD,
      },
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

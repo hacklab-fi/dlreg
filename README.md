@@ -10,10 +10,18 @@ to avoid spambots registering junk accounts.
 
 Contributions welcome!
 
+## OpenLDAP
+
+https://github.com/osixia/docker-openldap
+
+```bash
+ldapadd -x -H ldap://localhost -D "cn=admin,dc=ldap" -w admin -f init.ldif
+```
+
 ## Docker
 
 Create image:
-```
+```bash
 docker build -t dlreg:latest .
 ```
 Create local_settings.py from settings_local.py_template:

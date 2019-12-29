@@ -14,8 +14,11 @@ Users in {{ settings.ORGANIZATION_NAME }}. <a href="{% url 'index' %}">Back to i
     <td>{{user.uid}}</td>
     <td>{{user.username}}</td>
     <td>{{user.email}}</td>
-    <td><a href="{% url 'delete' user.uid %}">Delete</a> |
-    <a href="{% url 'pwreset' user.uid %}">Reset pwd</a></td>
+    <td>Yes</td>
+    <td><a href="{% url 'delete' user.uid %}">D</a>elete |
+    <a href="{% url 'pwreset' user.uid %}">R</a>eset pwd |
+    {% if not user.user_dn in admins %}<a href="{% url 'setadmin' user.uid 1 %}">M</a>ake admin |{% endif %}
+    {% if user.user_dn in admins %}<a href="{% url 'setadmin' user.uid 0 %}">R</a>emove admin</td>{% endif %}
 </tr>
 {% endfor %}
 </table>
